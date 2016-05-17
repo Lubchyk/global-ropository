@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Б Л Е К  ~  Д Ж Е К  ver. 1.2</title>
+<meta charset="utf-8">
+</head>
+<body>
+<script>
+alert('Б Л Е К  ~  Д Ж Е К  ver. 1.2');
+var p = 0, d = 0;
+do {
+var sum = 0, sum2 = 0, sum3 = 0, n = 0, w = 0; 
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function getCard() {
+	var a = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+	return a[getRandomInt(0, a.length - 1)];
+}
+function getStatus() {
+		return 'Карти диллера: ' + dealer.join(', ') + '.' + '\n' +  'Карти гравця: ' + player.join(', ') + '.';
+}
+function getSum(arr) {
+	var o = 0;
+	sum = 0;
+	n = 0;
+	for (var i = 0; i < arr.length; i++) {
+		if  (isNaN(arr[i])) { 
+			o = 10;
+		}
+		else {
+			o = parseInt(arr[i]);
+		}
+		sum = sum + o;
+	}
+	if ((arr[0] == 'A') && (arr[1] == 'A')) {
+			 n = -8;
+			}
+		else if ((arr[0] == 'A') && (arr[2] == 'A')) {
+			 n = -8;
+			}
+		else if ((arr[1] == 'A') && (arr[2] == 'A')) {
+			 n = -8;
+			}
+		else if ((arr[0] == 'A') || (arr[1] == 'A') || (arr[2] == 'A') ) {
+			 n = 1;
+			}
+	if ((arr[0] == 'A') && (arr[1] == 'A') && (arr[2] == 'A')) {
+			n = -7;
+		}
+		sum = sum + n;
+		return sum;
+}
+var dealer = [getCard()];
+var player = [getCard(), getCard()];
+alert(getStatus() + '\n' + "Диллер отримав " + getSum(dealer) + " очок." + '\n' + "Гравець отримав " + getSum(player) + " очок.");
+sum2 =  sum2 + sum;
+if (sum2 < 21) {
+	do {
+	w = prompt(getStatus()  + '\n' + 'Бажаєш взяти іще карту? Якщо так - жми 1, якщо ні - жми 2.');
+		if ((sum2 < 21) && (w == 1)) {
+			player.push(getCard());
+			sum2 = getSum(player);
+			alert(getStatus() + '\n' + "Гравець отримав " + getSum(player) + " очок.");
+		}
+	} while ((w == 1) && (sum2 < 21))
+}
+if (sum2 == 21 ) {
+	alert("Гравець набрав Блек - Джек!" + '\n' + "ГРАВЕЦЬ ВИГРАВ!");
+	p++;
+	}
+if (sum2 > 21) {
+	alert("Гравець перебор очок." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+	d++;
+	}
+if (w == 2) {
+	sum3 = (getSum(dealer));
+	do {
+		dealer.push(getCard());
+		sum3 = (getSum(dealer));
+		alert(getStatus() + '\n' + "Диллер набрав " + getSum(dealer) + " очок." + '\n' + "Гравець набрав " + sum2 + " очок.");
+	} while(sum3 < 17); 
+if (sum3 > 21) {
+	alert("В Диллера перебор." + '\n' + "ДИЛЛЕР ПРОГРАВ!");
+	p++;
+}
+else if ( sum3 == sum2) {
+		alert("Очок порівно." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+		d++;
+}
+else if (( sum3 == 17) && (sum2 > sum3)) {
+		alert("Гравець набрав більше очок, ніж Диллер." + '\n' +"ГРАВЕЦЬ ВИГРАВ!");
+		p++;
+}
+else if (( sum3 > 17) && (sum2 > sum3)) {
+		alert("Гравець набрав більше очок, ніж Диллер." + '\n' +"ГРАВЕЦЬ ВИГРАВ!");
+		p++;
+}
+else if ((sum3 == 21) && ( sum2 < 21)) {
+		alert("Диллер набрав Блек - Джек!" + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+		d++;
+}
+if ((sum3 > sum2) && ( sum3 < 21)) {
+	alert("Гравець набрав менше очок, ніж Диллер." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+	d++;
+}
+}
+var g = confirm('ще раунд?'); 
+    if(g!=true) break;
+} while (true);
+alert("Загальний рахунок:" + "\n" + "Диллер - Гравець   " + d + "  :  " + p);
+</script>
+</body> 
+</html>

@@ -1,0 +1,13 @@
+<meta charset="utf-8">
+<script>
+var s = parseInt(prompt("яку суму ти хочеш поставити в банк"));
+var d = parseInt(prompt("під який процент ти хочеш поставити"));
+var f = parseInt(prompt("на скільки років ти хочеш поставити"));
+var g;
+var i;
+for (g = 1; g <= f; g++ ) {
+		i = (s * d / 100);
+		s = s + i;
+	alert('пройшло років:' + " " + g + ' ' + "загальна сума твоїх коштів складає " + Math.floor(s));
+}
+</script>
