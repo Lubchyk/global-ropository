@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <script>
+do {
 var sum = parseInt(prompt("яку суму ти хочеш поставити в банк"));
 var percentage = parseInt(prompt("під який процент ти хочеш поставити"));
 var years = parseInt(prompt("на скільки років ти хочеш поставити"));
@@ -9,6 +10,9 @@ var i;
 for (i = 1; i <= years; i++ ) {
 		annualReturn = (sum * percentage / 100);
 		sum = sum + annualReturn;
-	alert('пройшло років:' + " " + i + ' ' + "загальна сума твоїх коштів складає " + Math.floor(s));
+	alert('пройшло років:' + " " + i + ' ' + "загальна сума твоїх коштів складає " + Math.floor(sum));
 }
+var round = confirm('Бажаєш продовжити?'); 
+	    if(round!=true) break;
+} while (true);
 </script>
