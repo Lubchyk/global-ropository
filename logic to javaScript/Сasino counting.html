@@ -1,0 +1,43 @@
+<meta charset="utf-8">
+<script>
+//alert('Добро пожаловать Депозит-банк');
+var a = [];
+var y = [];
+var r = 100;
+var z = 0;
+var i = 0;
+var q = 0;  
+
+for (i = 0; i <= r; i++) {
+	a.push(Math.round(Math.random()*36));
+}
+
+alert('усі випавші цифри ' + a);
+
+for(i=0; i<a.length; i++) {
+	if (a[i] == 0) {
+		y.push(0);
+	}
+	else if ( (a[i] == 1) || (a[i] == 3) || (a[i] == 5) || (a[i] == 7) || (a[i] == 9) || (a[i] == 11) || (a[i] == 13) || (a[i] == 15) || (a[i] == 17) || (a[i] == 19) || (a[i] == 21) || (a[i] == 23) || (a[i] == 25) || (a[i] == 27) || (a[i] == 29) || (a[i] == 31) || (a[i] == 33) || (a[i] == 35) ) {
+		y.push(1);
+	}
+	else {
+		y.push(-1);
+	}
+}
+for(i=0; i<y.length; i++) {
+	if (y[i] == 1) {
+		z++
+		if (q < z ) {
+			q = z;
+		}
+	}
+	else {
+		z = 0
+	}
+}
+alert('закодований варіант ' + y);
+//alert(z);
+alert('найдовша комбінація із червоних зон складає ' + q);
+//alert( z/a.length*100)
+</script>
