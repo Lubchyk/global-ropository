@@ -7,108 +7,108 @@
 <body>
 <script>
 alert('Б Л Е К  ~  Д Ж Е К  ver. 1.2');
-var p = 0, d = 0;
+var counterPointsPlayer = 0, counterPointsDealer = 0;
 do {
-var sum = 0, sum2 = 0, sum3 = 0, n = 0, w = 0; 
-function getRandomInt(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function getCard() {
-	var a = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-	return a[getRandomInt(0, a.length - 1)];
-}
-function getStatus() {
+	var sum = 0, sumPlayer = 0, sumDealer = 0, correctionPoints, choicePlayer; 
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	function getCard() {
+		var deck = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+		return deck[getRandomInt(0, deck.length - 1)];
+	}
+	function getStatus() {
 		return 'Карти диллера: ' + dealer.join(', ') + '.' + '\n' +  'Карти гравця: ' + player.join(', ') + '.';
-}
-function getSum(arr) {
-	var o = 0;
-	sum = 0;
-	n = 0;
-	for (var i = 0; i < arr.length; i++) {
-		if  (isNaN(arr[i])) { 
-			o = 10;
-		}
-		else {
-			o = parseInt(arr[i]);
-		}
-		sum = sum + o;
 	}
-	if ((arr[0] == 'A') && (arr[1] == 'A')) {
-			 n = -8;
+	function getSum(arr) {
+		var points = 0;
+		sum = 0;
+		correctionPoints = 0;
+		for (var i = 0; i < arr.length; i++) {
+			if  (isNaN(arr[i])) { 
+				points = 10;
 			}
-		else if ((arr[0] == 'A') && (arr[2] == 'A')) {
-			 n = -8;
+			else {
+				points = parseInt(arr[i]);
 			}
-		else if ((arr[1] == 'A') && (arr[2] == 'A')) {
-			 n = -8;
-			}
-		else if ((arr[0] == 'A') || (arr[1] == 'A') || (arr[2] == 'A') ) {
-			 n = 1;
-			}
-	if ((arr[0] == 'A') && (arr[1] == 'A') && (arr[2] == 'A')) {
-			n = -7;
+			sum = sum + points;
 		}
-		sum = sum + n;
+		if ((arr[0] == 'A') && (arr[1] == 'A')) {
+				 correctionPoints = -8;
+				}
+			else if ((arr[0] == 'A') && (arr[2] == 'A')) {
+				 correctionPoints = -8;
+				}
+			else if ((arr[1] == 'A') && (arr[2] == 'A')) {
+				 correctionPoints = -8;
+				}
+			else if ((arr[0] == 'A') || (arr[1] == 'A') || (arr[2] == 'A') ) {
+				 correctionPoints = 1;
+				}
+		if ((arr[0] == 'A') && (arr[1] == 'A') && (arr[2] == 'A')) {
+				correctionPoints = -7;
+			}
+		sum = sum + correctionPoints;
 		return sum;
-}
-var dealer = [getCard()];
-var player = [getCard(), getCard()];
-alert(getStatus() + '\n' + "Диллер отримав " + getSum(dealer) + " очок." + '\n' + "Гравець отримав " + getSum(player) + " очок.");
-sum2 =  sum2 + sum;
-if (sum2 < 21) {
-	do {
-	w = prompt(getStatus()  + '\n' + 'Бажаєш взяти іще карту? Якщо так - жми 1, якщо ні - жми 2.');
-		if ((sum2 < 21) && (w == 1)) {
-			player.push(getCard());
-			sum2 = getSum(player);
-			alert(getStatus() + '\n' + "Гравець отримав " + getSum(player) + " очок.");
+	}
+	var dealer = [getCard()];
+	var player = [getCard(), getCard()];
+	alert(getStatus() + '\n' + "Диллер отримав " + getSum(dealer) + " очок." + '\n' + "Гравець отримав " + getSum(player) + " очок.");
+	sumPlayer =  sumPlayer + sum;
+	if (sumPlayer < 21) {
+		do {
+			choicePlayer = prompt(getStatus()  + '\n' + 'Бажаєш взяти іще карту? Якщо так - жми 1, якщо ні - жми 2.');
+			if ((sumPlayer < 21) && (choicePlayer == 1)) {
+				player.push(getCard());
+				sumPlayer = getSum(player);
+				alert(getStatus() + '\n' + "Гравець отримав " + getSum(player) + " очок.");
+			}
+		} while ((choicePlayer == 1) && (sumPlayer < 21))
+	}
+	if (sumPlayer == 21 ) {
+		alert("Гравець набрав Блек - Джек!" + '\n' + "ГРАВЕЦЬ ВИГРАВ!");
+		counterPointsPlayer++;
 		}
-	} while ((w == 1) && (sum2 < 21))
-}
-if (sum2 == 21 ) {
-	alert("Гравець набрав Блек - Джек!" + '\n' + "ГРАВЕЦЬ ВИГРАВ!");
-	p++;
+	if (sumPlayer > 21) {
+		alert("Гравець перебор очок." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+		counterPointsDealer++;
+		}
+	if (choicePlayer == 2) { 
+		sumDealer = (getSum(dealer));
+		do {
+			dealer.push(getCard());
+			sumDealer = (getSum(dealer));
+			alert(getStatus() + '\n' + "Диллер набрав " + getSum(dealer) + " очок." + '\n' + "Гравець набрав " + sumPlayer + " очок.");
+		} while(sumDealer < 17); 
+	if (sumDealer > 21) {
+		alert("В Диллера перебор." + '\n' + "ДИЛЛЕР ПРОГРАВ!");
+		counterPointsPlayer++;
 	}
-if (sum2 > 21) {
-	alert("Гравець перебор очок." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
-	d++;
+	else if ( sumDealer == sumPlayer) {
+			alert("Очок порівно." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+			counterPointsDealer++;
 	}
-if (w == 2) {
-	sum3 = (getSum(dealer));
-	do {
-		dealer.push(getCard());
-		sum3 = (getSum(dealer));
-		alert(getStatus() + '\n' + "Диллер набрав " + getSum(dealer) + " очок." + '\n' + "Гравець набрав " + sum2 + " очок.");
-	} while(sum3 < 17); 
-if (sum3 > 21) {
-	alert("В Диллера перебор." + '\n' + "ДИЛЛЕР ПРОГРАВ!");
-	p++;
-}
-else if ( sum3 == sum2) {
-		alert("Очок порівно." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
-		d++;
-}
-else if (( sum3 == 17) && (sum2 > sum3)) {
-		alert("Гравець набрав більше очок, ніж Диллер." + '\n' +"ГРАВЕЦЬ ВИГРАВ!");
-		p++;
-}
-else if (( sum3 > 17) && (sum2 > sum3)) {
-		alert("Гравець набрав більше очок, ніж Диллер." + '\n' +"ГРАВЕЦЬ ВИГРАВ!");
-		p++;
-}
-else if ((sum3 == 21) && ( sum2 < 21)) {
-		alert("Диллер набрав Блек - Джек!" + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
-		d++;
-}
-if ((sum3 > sum2) && ( sum3 < 21)) {
-	alert("Гравець набрав менше очок, ніж Диллер." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
-	d++;
-}
-}
-var g = confirm('ще раунд?'); 
-    if(g!=true) break;
+	else if (( sumDealer == 17) && (sumPlayer > sumDealer)) {
+			alert("Гравець набрав більше очок, ніж Диллер." + '\n' +"ГРАВЕЦЬ ВИГРАВ!");
+			counterPointsPlayer++;
+	}
+	else if (( sumDealer > 17) && (sumPlayer > sumDealer)) {
+			alert("Гравець набрав більше очок, ніж Диллер." + '\n' +"ГРАВЕЦЬ ВИГРАВ!");
+			counterPointsPlayer++;
+	}
+	else if ((sumDealer == 21) && (sumPlayer < 21)) {
+			alert("Диллер набрав Блек - Джек!" + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+			counterPointsDealer++;
+	}
+	if ((sumDealer > sumPlayer) && (sumDealer < 21)) {
+		alert("Гравець набрав менше очок, ніж Диллер." + '\n' + "ГРАВЕЦЬ ПРОГРАВ!");
+		counterPointsDealer++;
+	}
+	}
+	var round = confirm('ще раунд?'); 
+	    if(round!=true) break;
 } while (true);
-alert("Загальний рахунок:" + "\n" + "Диллер - Гравець   " + d + "  :  " + p);
+alert("Загальний рахунок:" + "\n" + "Диллер - Гравець   " + counterPointsDealer + "  :  " + counterPointsPlayer);
 </script>
 </body> 
 </html>
